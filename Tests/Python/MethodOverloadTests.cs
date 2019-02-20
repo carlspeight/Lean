@@ -47,25 +47,60 @@ namespace QuantConnect.Tests.Python
         }
 
         [Test]
-        public void CallPlotTests()
+        public void CallPlotNumberTest()
         {
             using (Py.GIL())
             {
                 // self.Plot('NUMBER', 0.1)
                 Assert.DoesNotThrow(() => _algorithm.call_plot_number_test());
+            }
+        }
 
+        [Test]
+        public void CallPlotSmaTest()
+        {
+            using (Py.GIL())
+            {
                 // self.Plot('STD', self.std), where self.sma = self.SMA('SPY', 20)
                 Assert.DoesNotThrow(() => _algorithm.call_plot_sma_test());
+            }
+        }
 
+        [Test]
+        public void CallPlotStdTest()
+        {
+            using (Py.GIL())
+            {
                 // self.Plot('SMA', self.sma), where self.std = self.STD('SPY', 20)
                 Assert.DoesNotThrow(() => _algorithm.call_plot_std_test());
+            }
+        }
 
+        [Test]
+        public void CallPlotThrowTest()
+        {
+            using (Py.GIL())
+            {
                 // self.Plot("ERROR", self.Name), where self.Name is IAlgorithm.Name: string
                 Assert.Throws<PythonException>(() => _algorithm.call_plot_throw_test());
+            }
+        }
 
+        [Test]
+        public void CallPlotThrowManagedTest()
+        {
+            using (Py.GIL())
+            {
                 // self.Plot("ERROR", self.Portfolio), where self.Portfolio is IAlgorithm.Portfolio: instance of SecurityPortfolioManager
                 Assert.Throws<PythonException>(() => _algorithm.call_plot_throw_managed_test());
+            }
+        }
 
+        [Test]
+        public void CallPlotThrowPyObjectTest()
+        {
+            using (Py.GIL())
+            {
                 // self.Plot("ERROR", self.a), where self.a is an instance of a python object
                 Assert.Throws<PythonException>(() => _algorithm.call_plot_throw_pyobject_test());
             }
